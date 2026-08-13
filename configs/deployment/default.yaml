@@ -1,0 +1,36 @@
+# @package deployment
+
+enabled: true
+auto_export: true
+prefer_ema: false
+pretrained_root: artifacts/pretrained
+
+server:
+  host: 127.0.0.1
+  public_host: 127.0.0.1
+  port: 8080
+  fps: 30
+  inference_latency: 0.03
+  obs_queue_timeout: 1.0
+  max_frame_delay: null
+  semantic_wait_warn_ms: 500
+  semantic_wait_fail_ms: 3000
+  cuda_visible_devices: ""
+  hf_offline: false
+
+robot_client:
+  policy_device: cuda
+  client_device: cpu
+  actions_per_chunk: 16
+  chunk_size_threshold: 0.2
+  fps: 30
+  aggregate_fn_name: weighted_average
+  task: ""
+  debug_visualize_queue_size: false
+  mode: sync
+  sync_get_actions_timeout_s: 5.0
+  sync_poll_interval_s: 0.01
+  auto_align_to_leader_before_test: true
+  align_timeout_s: 12.0
+  align_tolerance: 3.0
+  align_settle_s: 0.5

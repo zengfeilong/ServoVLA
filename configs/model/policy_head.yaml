@@ -1,0 +1,17 @@
+# @package model.policy_head
+# DiT Policy Head configuration.
+
+# Action space
+action_dim: 6             # Placeholder default; auto-overridden from dataset/manifest at runtime
+chunk_size: 16            # Number of action steps per chunk (prediction horizon)
+state_dim: 6              # Placeholder default; resolved from dataset/manifest at runtime for training
+num_cameras: 2            # Placeholder default; resolved from dataset camera config at runtime for training
+
+# DiT architecture
+hidden_dim: 640          # Shared dimension for projections + DiT
+num_heads: 10            # Attention heads (hidden_dim must be divisible by num_heads)
+num_layers: 10           # Number of DiT transformer blocks
+dropout: 0.1
+
+# Flow matching
+num_inference_steps: 3   # ODE steps during evaluation, deployment, and rollout action loss

@@ -1,0 +1,19 @@
+# @package model.vlm_encoder
+# Semantic / language conditioning encoder.
+# Used by end-to-end training and deployment inference.
+
+model_id: Qwen/Qwen3.5-0.8B   # default
+attn_implementation: sdpa
+
+# Available choices (swap on CLI):
+#   Qwen/Qwen3.5-0.8B    feature_dim=1024
+#   Qwen/Qwen3.5-2B      feature_dim=2048
+#   Qwen/Qwen3.5-4B      feature_dim=2560
+#   Qwen/Qwen3.5-9B      feature_dim=4096
+
+# Hidden dimension of the chosen VLM (last-layer hidden state used as C_sem).
+# Must stay consistent with the policy head feature contract.
+feature_dim: 1024             # Qwen3.5-0.8B
+
+# Image pre-processing for the VLM branch
+image_size: 256

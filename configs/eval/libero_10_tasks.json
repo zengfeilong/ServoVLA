@@ -1,0 +1,77 @@
+{
+  "suite": "libero_10",
+  "source": "hf-libero 0.1.3 suite order matched against HuggingFaceVLA/libero meta/tasks.parquet",
+  "task_count": 10,
+  "tasks": [
+    {
+      "suite": "libero_10",
+      "suite_task_id": 0,
+      "task_index": 5,
+      "task_name": "LIVING_ROOM_SCENE2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket",
+      "language": "put both the alphabet soup and the tomato sauce in the basket"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 1,
+      "task_index": 7,
+      "task_name": "LIVING_ROOM_SCENE2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket",
+      "language": "put both the cream cheese box and the butter in the basket"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 2,
+      "task_index": 3,
+      "task_name": "KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it",
+      "language": "turn on the stove and put the moka pot on it"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 3,
+      "task_index": 8,
+      "task_name": "KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it",
+      "language": "put the black bowl in the bottom drawer of the cabinet and close it"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 4,
+      "task_index": 0,
+      "task_name": "LIVING_ROOM_SCENE5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate",
+      "language": "put the white mug on the left plate and put the yellow and white mug on the right plate"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 5,
+      "task_index": 9,
+      "task_name": "STUDY_SCENE1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy",
+      "language": "pick up the book and place it in the back compartment of the caddy"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 6,
+      "task_index": 1,
+      "task_name": "LIVING_ROOM_SCENE6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate",
+      "language": "put the white mug on the plate and put the chocolate pudding to the right of the plate"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 7,
+      "task_index": 4,
+      "task_name": "LIVING_ROOM_SCENE1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket",
+      "language": "put both the alphabet soup and the cream cheese box in the basket"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 8,
+      "task_index": 6,
+      "task_name": "KITCHEN_SCENE8_put_both_moka_pots_on_the_stove",
+      "language": "put both moka pots on the stove"
+    },
+    {
+      "suite": "libero_10",
+      "suite_task_id": 9,
+      "task_index": 2,
+      "task_name": "KITCHEN_SCENE6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it",
+      "language": "put the yellow and white mug in the microwave and close it"
+    }
+  ]
+}

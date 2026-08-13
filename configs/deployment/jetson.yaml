@@ -1,0 +1,87 @@
+workspace:
+  root: .
+  log_dir: logs/jetson
+  default_task: pick_place
+
+robot:
+  type: so101_follower
+  id: servovla_follower
+  port: /dev/ttyACM0
+  disable_torque_on_disconnect: true
+  use_degrees: true
+  cameras:
+    front:
+      type: opencv
+      index_or_path: 0
+      fps: 30
+      width: 640
+      height: 480
+    wrist:
+      type: opencv
+      index_or_path: 1
+      fps: 30
+      width: 640
+      height: 480
+    side:
+      type: opencv
+      index_or_path: 2
+      fps: 30
+      width: 640
+      height: 480
+
+teleop:
+  type: so101_leader
+  id: servovla_leader
+  port: /dev/ttyACM1
+  use_degrees: true
+
+teleop_diagnostics:
+  enabled: false
+  log_every_n_steps: 10
+  joint_keys: []
+
+record:
+  dataset_root: data/recordings
+  fps: 30
+  episode_time_s: 60
+  reset_time_s: 30
+  num_episodes: 50
+  video: true
+  push_to_hub: false
+  private: false
+  tags: [servovla, so101]
+  display_data: false
+  play_sounds: true
+  num_image_writer_processes: 0
+  num_image_writer_threads_per_camera: 4
+
+async_client:
+  policy_type: servovla
+  pretrained_name_or_path: artifacts/pretrained/default
+  server_address: 127.0.0.1:8080
+  policy_device: cuda
+  client_device: cpu
+  actions_per_chunk: 16
+  chunk_size_threshold: 0.2
+  fps: 30
+  aggregate_fn_name: weighted_average
+  debug_visualize_queue_size: false
+  mode: sync
+  sync_get_actions_timeout_s: 5.0
+  sync_poll_interval_s: 0.01
+  auto_align_to_leader_before_test: true
+  align_timeout_s: 12.0
+  align_tolerance: 3.0
+  align_settle_s: 0.5
+  task: ""
+
+tasks:
+  clean:
+    language_instruction: Keep the workspace clear and move the object to the target area.
+    repo_id: ServoVLA/so101_clean_train
+  pick_place:
+    language_instruction: Pick up the object and place it in the target area.
+    repo_id: ServoVLA/so101_pick_place_train
+  stacking:
+    language_instruction: Stack the object on top of the matching object.
+    repo_id: ServoVLA/so101_stacking_train

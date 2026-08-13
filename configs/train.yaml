@@ -1,0 +1,31 @@
+# @package _global_
+# Top-level Hydra config for end-to-end ServoVLA training and evaluation.
+# Override individual groups on the CLI, e.g.:
+#   python scripts/train.py
+
+defaults:
+  - /model/policy_head@model.policy_head
+  - /model/vision_encoder@model.vision_encoder
+  - /model/vlm_encoder@model.vlm_encoder
+  - dataset: default
+  - training: default
+  - deployment: default
+  - _self_
+
+# Paths are resolved from the project root.
+output_root: runs/train
+output_dir: ${output_root}/${dataset.action_mode}/${now:%Y-%m-%d_%H-%M-%S}
+
+# Reproducibility.
+seed: 42
+
+inference:
+  noise_seed: null
+  noise_seed_mode: step
+
+# Hydra output.
+hydra:
+  run:
+    dir: ${output_dir}
+  job:
+    chdir: false

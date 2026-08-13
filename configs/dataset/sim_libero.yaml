@@ -1,0 +1,84 @@
+# @package dataset
+# LIBERO simulation-only dataset configuration.
+
+train_names:
+  - HuggingFaceVLA/libero
+val_names: []
+action_mode: abs
+action_dim: 7
+# LIBERO actions are relative controller commands in the environment action
+# space, not absolute eef poses. Keep them direct so rollout can pass model
+# outputs to env.step without state-based reconstruction.
+action_delta_state_indices: null
+benchmark: libero_40
+
+camera_keys:
+  - observation.images.image
+  - observation.images.image2
+
+camera_key_aliases:
+  image:
+    - observation.images.image
+  image2:
+    - observation.images.image2
+
+state_keys:
+  - state_0
+  - state_1
+  - state_2
+  - state_3
+  - state_4
+  - state_5
+  - state_6
+  - state_7
+
+task_key_candidates:
+  - task
+
+task_index_allowlist:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+
+proprio_dim: 8
+num_cameras: 2
+
+train_split: train
+val_split: val

@@ -1,0 +1,16 @@
+protocol_path: configs/eval/libero_40_tasks.json
+run_root: runs/eval/libero_40
+suite: libero_40
+device: cuda
+obs_type: pixels_agent_pos
+render_mode: rgb_array
+camera_name: agentview_image,robot0_eye_in_hand_image
+control_mode: relative
+replan_every_step: false
+n_episodes_per_task: 10
+use_async_envs: false
+delay_chunk_size_threshold: 0.0
+prefer_ema: true
+seed: 1234
+max_tasks: null
+top_failure_count: 10

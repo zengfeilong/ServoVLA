@@ -1,0 +1,150 @@
+# @package training
+# Optimiser, scheduler, EMA, and AMP settings for end-to-end ServoVLA training.
+
+device: cuda
+amp_dtype: bfloat16
+policy_head_param_dtype: float32
+
+# Base checkpoint initializes raw or EMA model weights and action normalization
+# for a new run. Training always starts from step 0 with fresh optimizer state.
+base_checkpoint: null
+base_checkpoint_use_ema: false
+
+compile: true
+compile_policy_head: true
+compile_vision_encoder: true
+compile_vlm_encoder: true
+vlm_compile:
+  warmup_enabled: true
+  warmup_max_batches: 2
+  warmup_batch_size: null
+  warmup_num_workers: 0
+  warmup_shuffle_episodes: false
+  synthetic_raw_batches: true
+  signature_max_entries: 16
+  on_new_signature: warn_and_warmup
+  log_signatures: true
+  eval_warmup_enabled: true
+  overlap_train_reader: true
+  position_cache_enabled: false
+  flash_attention_graph_break: true
+  qwen_visual_position_graph_break: true
+  nested_fx_trace_fallback: true
+
+# Raw LeRobot DataLoader.
+batch_size: 128
+num_workers: 2
+pin_memory: true
+prefetch_factor: 1
+dataloader_in_order: false
+drop_last: false
+shuffle_episodes: true
+use_data_aug: false
+prompt_cache_size: 128
+vlm_processor_micro_batch_size: 64
+vlm_sequence_padding_multiple: 16
+
+semantic_delay:
+  max_delay_chunks: 2
+  chunk_size_threshold: 0.0
+  sync_weight: 1.0
+  async_bucket_weights: [1.0, 1.0]
+
+raw_shuffle:
+  strategy: epoch_chunk
+  chunk_steps: 256
+  window_steps: 128
+  active_episodes_per_dataset: 4
+  shuffle_chunks: true
+  reshuffle_each_epoch: true
+  epoch_boundary_offsets: true
+  window_boundary_offsets: false
+  seed_stride: 100003
+  batch_dataset_strategy: quota
+  batch_dataset_burst_batches: 1
+  quota_max_datasets_per_batch: 1
+  max_episodes_per_batch: 0
+  episode_burst_batches: 1
+
+rollout_action_loss:
+  enabled: true
+  loss_type: smooth_l1
+  beta: 0.05
+  max_weight: 0.2
+  start_step: 20000
+  end_step: 60000
+  schedule: cosine
+  noise_source: fm_noise
+
+action_normalization:
+  enabled: true
+  source: train_dataset
+  mode: per_horizon_dim
+  dataset_weight_strategy: equal_datasets
+  eps: 1.0e-6
+  mean: null
+  std: null
+
+batch_mixing:
+  mode: explicit_weights
+  integerization: largest_remainder
+
+gpu_pipeline:
+  enabled: true
+  feature_queue_depth: 4
+  encoder_parallel_streams: true
+  log_timing_every: 50
+  gpu_preprocess: true
+  async_producer: true
+  cpu_prefetch_depth: 4
+  vision_encoder_micro_batch_size: 8
+  vlm_encoder_micro_batch_size: 32
+  startup_trace_submit_limit: 0
+  startup_trace_step_limit: 0
+
+# Validation DataLoader.
+eval_batch_size: 16
+eval_num_workers: 2
+eval_prefetch_factor: 1
+
+optimizer:
+  lr: 1.0e-4
+  weight_decay: 2.0e-2
+  betas: [0.9, 0.99]
+  eps: 1.0e-8
+
+scheduler:
+  T_max: 80000
+  eta_min: 1.0e-4
+  warmup_steps: 0
+  warmup_start_factor: 0.05
+
+ema:
+  decay: 0.99609375
+  update_after_step: 5000
+  update_every: 4
+
+max_steps: 80000
+grad_clip_norm: 1.0
+log_every: 50
+save_every: 1000
+eval_every: 0
+eval_seed: 1234
+eval_zero_noise: false
+eval_use_ema: true
+async_eval:
+  enabled: false
+  backend: subprocess
+  device: cuda
+  task_dir: eval_tasks
+decode:
+  device: cuda
+  video_backend: auto
+  fallback_backend: torchcodec
+  allow_software_fallback: true
+  num_workers: 2
+  intra_batch_parallelism: 4
+  decoder_cache_size: 12
+  max_batch_decode_span_s: 2.0
+  thread_count: 1
+  thread_type: none

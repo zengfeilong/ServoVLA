@@ -1,0 +1,55 @@
+# Claude Code Memory & Config
+.claude/
+
+# Codex Memory & Config
+.codex
+
+# VS Code Workspace
+.vscode/
+.idea/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*.class
+
+# Python tooling caches
+.pytest_cache/
+.cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Runtime outputs
+logs/
+outputs/
+tmp/
+*.log
+wandb/
+runs/
+artifacts/
+profiles/
+data/recordings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git worktrees
+.worktrees/
+
+# Local environments and secrets
+.env
+.env.*
+!.env.example
+.venv/

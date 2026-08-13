@@ -1,0 +1,6 @@
+# @package deployment
+
+enabled: false
+auto_export: false
+prefer_ema: false
+pretrained_root: artifacts/pretrained

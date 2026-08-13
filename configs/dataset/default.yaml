@@ -1,0 +1,64 @@
+# @package dataset
+# LeRobot dataset configuration.
+
+# Dataset selection.
+# Multiple train datasets use dataset.train_weight_strategy or explicit dataset.train_weights.
+# Validation datasets are traversed sequentially and do not use train weights.
+train_names:
+- ServoVLA/so101_clean_train
+- ServoVLA/so101_pick_place_train
+- ServoVLA/so101_stacking_train
+
+# Public datasets are sampled equally by default.
+train_weight_strategy: explicit_weights
+train_weights: [1.0, 1.0, 1.0]
+
+val_names:
+  - ServoVLA/so101_clean_val
+  - ServoVLA/so101_pick_place_val
+  - ServoVLA/so101_stacking_val
+
+
+action_mode: delta
+action_dim: 6
+# Maps action dimensions to observation.state dimensions for delta target
+# subtraction and inference restoration. Use null for action dimensions that
+# are already controller commands and should not be offset by state.
+action_delta_state_indices: [0, 1, 2, 3, 4, 5]
+
+# Observation / action contract.
+# ServoVLA is conditioned on an ordered list of camera views and the current robot joint state.
+camera_keys:
+  - observation.images.front
+  - observation.images.wrist
+  - observation.images.side
+
+# Fallback keys used when the exact camera keys above are not present.
+camera_key_aliases:
+  front:
+    - observation.images.front
+  wrist:
+    - observation.images.wrist
+  side:
+    - observation.images.side
+
+
+# SO101 follower joint order. The first `proprio_dim` values are used as q_current.
+state_keys:
+  - shoulder_pan.pos
+  - shoulder_lift.pos
+  - elbow_flex.pos
+  - wrist_flex.pos
+  - wrist_roll.pos
+  - gripper.pos
+
+task_key_candidates:
+  - task
+  - language_instruction
+
+proprio_dim: 6
+num_cameras: 3
+
+# Split.
+train_split: train
+val_split: val
